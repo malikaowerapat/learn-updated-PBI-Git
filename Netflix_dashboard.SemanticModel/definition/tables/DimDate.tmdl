@@ -1,0 +1,131 @@
+table DimDate
+	lineageTag: b27e51c8-55c3-4bd4-a788-60c098d50a15
+
+	column Date
+		formatString: dd/mm/yy
+		lineageTag: 94cd2f4a-c81c-4fb3-b0a5-918cd9459693
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: 775f6ef2-103e-4f2b-b276-d215f9568df7
+			defaultHierarchy: LocalDateTable_7cc58803-8b9b-4f70-963e-1724947ec667.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Year
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: ceb0eff6-e4fa-46c5-b9b4-56757183e95e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year]
+
+		variation Variation
+			isDefault
+			relationship: 1c70ad02-2955-4e46-82fa-ac912e13babe
+			defaultHierarchy: LocalDateTable_ab82fd1b-67a1-4405-bf09-b1cca123cd54.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column MonthNo
+		formatString: 0
+		lineageTag: d0747b0d-fa70-40e1-a6a2-c708814b0e51
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [MonthNo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		lineageTag: 61bc8109-6b28-451c-9015-bcbe65a0b53a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MonthName]
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearMonth
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 0b527c41-bd45-4873-8cd1-0c8288b33df2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [YearMonth]
+
+		variation Variation
+			isDefault
+			relationship: 9f01a32d-9b23-4b30-8ea4-756037b07dbc
+			defaultHierarchy: LocalDateTable_713a38ff-e765-41e3-bc91-d31d9f269aa7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Quarter
+		lineageTag: 2fb8438d-551a-4173-8511-aa7fd473890e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		formatString: 0
+		lineageTag: 58bf7100-09cc-4cee-b1c2-b3990308de3f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Day]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayName
+		lineageTag: cd8a7f24-734a-4769-85a8-9c96e1c876ce
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [DayName]
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsWeekend
+		formatString: 0
+		lineageTag: a9a3be5c-a613-4d1e-a14a-b1d5e4bf4c13
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [IsWeekend]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimDate = calculated
+		mode: import
+		source = ```
+				
+				ADDCOLUMNS (
+				    CALENDAR (
+				        MIN ( 'netflix_titles'[date_added] ),   -- วันที่เริ่มต้นใน data
+				        MAX ( 'netflix_titles'[date_added] )    -- วันที่สิ้นสุดใน data
+				    ),
+				    "Year",        YEAR ( [Date] ),
+				    "MonthNo",     MONTH ( [Date] ),
+				    "MonthName",   FORMAT ( [Date], "MMMM" ),
+				    "YearMonth",   FORMAT ( [Date], "YYYY-MM" ),
+				    "Quarter",     "Q" & FORMAT ( [Date], "Q" ),
+				    "Day",         DAY ( [Date] ),
+				    "DayName",     FORMAT ( [Date], "DDD" ),
+				    "IsWeekend",   IF ( WEEKDAY ( [Date], 2 ) > 5, 1, 0 )
+				)
+				
+				```
+
+	annotation PBI_Id = 4b44b931cbd546f7a8d1ae9f3a8ff0dd
+

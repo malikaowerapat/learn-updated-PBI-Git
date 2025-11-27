@@ -80,19 +80,16 @@ table netflix_titles
 
 	column date_added
 		dataType: dateTime
-		formatString: Long Date
+		formatString: dd/mm/yyyy
 		lineageTag: c32f7538-e643-40c4-a324-01a1cbd0e919
 		summarizeBy: none
 		sourceColumn: date_added
 
-		variation Variation
-			isDefault
-			relationship: 6285a2b7-a82b-4893-aa33-b171f83d0987
-			defaultHierarchy: LocalDateTable_48e0fb65-93e4-4085-843a-fe96fa470fbc.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
 
 	column release_year
 		dataType: int64

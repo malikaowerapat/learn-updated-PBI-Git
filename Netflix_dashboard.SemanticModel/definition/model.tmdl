@@ -19,7 +19,10 @@ annotation PBI_ProTooling = ["DevMode"]
 
 ref table netflix_titles
 ref table DateTableTemplate_dad2ba68-eb28-4462-a167-ccc75703e583
-ref table LocalDateTable_48e0fb65-93e4-4085-843a-fe96fa470fbc
+ref table DimDate
+ref table LocalDateTable_7cc58803-8b9b-4f70-963e-1724947ec667
+ref table LocalDateTable_ab82fd1b-67a1-4405-bf09-b1cca123cd54
+ref table LocalDateTable_713a38ff-e765-41e3-bc91-d31d9f269aa7
 
 ref cultureInfo en-US
 

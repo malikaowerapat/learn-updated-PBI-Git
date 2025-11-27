@@ -1,5 +1,19 @@
-relationship 6285a2b7-a82b-4893-aa33-b171f83d0987
+relationship 775f6ef2-103e-4f2b-b276-d215f9568df7
 	joinOnDateBehavior: datePartOnly
+	fromColumn: DimDate.Date
+	toColumn: LocalDateTable_7cc58803-8b9b-4f70-963e-1724947ec667.Date
+
+relationship 181108e3-b4fd-9cd2-4bf6-9fb8a12f6ff0
 	fromColumn: netflix_titles.date_added
-	toColumn: LocalDateTable_48e0fb65-93e4-4085-843a-fe96fa470fbc.Date
+	toColumn: DimDate.Date
+
+relationship 1c70ad02-2955-4e46-82fa-ac912e13babe
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimDate.Year
+	toColumn: LocalDateTable_ab82fd1b-67a1-4405-bf09-b1cca123cd54.Date
+
+relationship 9f01a32d-9b23-4b30-8ea4-756037b07dbc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimDate.YearMonth
+	toColumn: LocalDateTable_713a38ff-e765-41e3-bc91-d31d9f269aa7.Date
 
