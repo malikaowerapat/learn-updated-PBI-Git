@@ -1,0 +1,73 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "0658ae60b0c16e80dd15",
+  "position": {
+    "x": 98.781478472786361,
+    "y": 57.189277010560524,
+    "z": 0,
+    "height": 128.93582453290009,
+    "width": 216.27944760357434
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "netflix_titles"
+                    }
+                  },
+                  "Property": "Total Movies"
+                }
+              },
+              "queryRef": "netflix_titles.Total Movies",
+              "nativeQueryRef": "Total Movies"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "netflix_titles"
+                  }
+                },
+                "Property": "Total Movies"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "f355c7d5b26a38255b44",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "netflix_titles"
+              }
+            },
+            "Property": "Total Movies"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

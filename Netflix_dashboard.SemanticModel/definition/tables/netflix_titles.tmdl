@@ -1,0 +1,161 @@
+table netflix_titles
+	lineageTag: 054a3ded-8273-41ac-9705-f48dc24516cf
+
+	measure 'Total Titles' =
+			
+			COUNTROWS ( 'netflix_titles' )
+		formatString: 0
+		lineageTag: 1166c2be-5fe3-459d-a173-7d3161e3c56a
+
+	measure 'Total Movies' = ```
+			
+			CALCULATE (
+			    [Total Titles],
+			    'netflix_titles'[type] = "Movie"
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 501ccce5-db27-4034-99c9-90a8f4c271c1
+
+	measure 'Total TV Shows' = ```
+			
+			CALCULATE (
+			    [Total Titles],
+			    'netflix_titles'[type] = "TV Show"
+			)
+			
+			
+			```
+		formatString: 0
+		lineageTag: 0a3fee7a-149c-492d-9456-623aa98a15e7
+
+	column show_id
+		dataType: string
+		lineageTag: 36fc82ce-117f-4821-acd2-54558ecbd292
+		summarizeBy: none
+		sourceColumn: show_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		lineageTag: 48cb9c8a-0b76-4e78-baf7-b6c207e9c8e8
+		summarizeBy: none
+		sourceColumn: type
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: 84fc33a0-b04a-4221-a59a-912bccc31e2f
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column director
+		dataType: string
+		lineageTag: 9398ba10-033d-42ad-aaec-39e9f2084f29
+		summarizeBy: none
+		sourceColumn: director
+
+		annotation SummarizationSetBy = Automatic
+
+	column cast
+		dataType: string
+		lineageTag: b0b4dd63-e49b-4641-aadd-ffa82c9cf4f7
+		summarizeBy: none
+		sourceColumn: cast
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: f8d4aef6-1985-44d4-a058-3c0f590fd0fe
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_added
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c32f7538-e643-40c4-a324-01a1cbd0e919
+		summarizeBy: none
+		sourceColumn: date_added
+
+		variation Variation
+			isDefault
+			relationship: 6285a2b7-a82b-4893-aa33-b171f83d0987
+			defaultHierarchy: LocalDateTable_48e0fb65-93e4-4085-843a-fe96fa470fbc.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column release_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 96f9ce09-b1d8-4eb4-93c5-00bc6902c2ba
+		summarizeBy: sum
+		sourceColumn: release_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column rating
+		dataType: string
+		lineageTag: 7dd7d2c4-c903-4d3a-890c-8ecd40b8364e
+		summarizeBy: none
+		sourceColumn: rating
+
+		annotation SummarizationSetBy = Automatic
+
+	column duration
+		dataType: string
+		lineageTag: c21e5ab7-c55c-4e9d-b4b5-316cf4276ac0
+		summarizeBy: none
+		sourceColumn: duration
+
+		annotation SummarizationSetBy = Automatic
+
+	column listed_in
+		dataType: string
+		lineageTag: 79f16f9b-d30a-4b15-b9a8-2449ff36eb3f
+		summarizeBy: none
+		sourceColumn: listed_in
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: 82087467-718f-458d-89b8-92888a657b96
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year_Added =
+			
+			YEAR ( 'netflix_titles'[date_added] )
+		formatString: 0
+		lineageTag: bbb085ea-b288-49b9-b6d2-69da2d06c658
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition netflix_titles = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\UsEr\Desktop\End to End Fabrics\Git Source Control  PBI\learn-updated-PBI-Git\netflix_titles.csv"),[Delimiter=",", Columns=12, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"show_id", type text}, {"type", type text}, {"title", type text}, {"director", type text}, {"cast", type text}, {"country", type text}, {"date_added", type date}, {"release_year", Int64.Type}, {"rating", type text}, {"duration", type text}, {"listed_in", type text}, {"description", type text}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each true)
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
